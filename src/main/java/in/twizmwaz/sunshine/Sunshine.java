@@ -25,7 +25,7 @@ public class Sunshine {
 
     public static SunshinePlayer getPlayer(String name) throws RuntimeException {
         try {
-            String url = new URL("http", server, port, "/players/name").toString();
+            String url = new URL("http", server, port, "/players/" + name).toString();
             JSONObject object = Unirest.get(url).asJson().getBody().getObject();
             return new SunshinePlayer(object);
         } catch (MalformedURLException e) {
