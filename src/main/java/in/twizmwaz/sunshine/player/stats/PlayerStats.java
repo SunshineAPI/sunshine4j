@@ -7,7 +7,7 @@ import org.json.JSONObject;
  * Represents the stats of a {@link in.twizmwaz.sunshine.player.SunshinePlayer}
  */
 @Data
-public class Stats {
+public class PlayerStats {
 
     private OverallStats overall;
     private ForumStats forum;
@@ -15,7 +15,7 @@ public class Stats {
     private GameStats blitz;
     private GameStats ghostSquadron;
 
-    public Stats(JSONObject object) {
+    public PlayerStats(JSONObject object) {
         setOverall(new OverallStats(object.getJSONObject("overall")));
         setForum(new ForumStats(object.getJSONObject("forum")));
         setProjectAres(new GameStats(object.getJSONObject("project_ares")));

@@ -3,6 +3,7 @@ package in.twizmwaz.sunshine;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import in.twizmwaz.sunshine.player.SunshinePlayer;
+import in.twizmwaz.sunshine.team.SunshineTeam;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
@@ -28,6 +29,18 @@ public class Sunshine {
             String url = new URL("http", server, port, "/players/" + name).toString();
             JSONObject object = Unirest.get(url).asJson().getBody().getObject();
             return new SunshinePlayer(object);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (UnirestException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static SunshineTeam getTeam(String name) throws RuntimeException {
+        try {
+            String url = new URL("http", server, port, "/teams/" + name).toString();
+            JSONObject object = Unirest.get(url).asJson().getBody().getObject();
+            return new SunshineTeam(object);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (UnirestException e) {

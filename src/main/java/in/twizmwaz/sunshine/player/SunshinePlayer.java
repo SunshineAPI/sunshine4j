@@ -1,6 +1,6 @@
 package in.twizmwaz.sunshine.player;
 
-import in.twizmwaz.sunshine.player.stats.Stats;
+import in.twizmwaz.sunshine.player.stats.PlayerStats;
 import lombok.Data;
 import org.json.JSONObject;
 
@@ -15,7 +15,7 @@ public class SunshinePlayer {
     private String status;
     private int friends;
     private Profile profile;
-    private Stats stats;
+    private PlayerStats stats;
 
     public SunshinePlayer(JSONObject object) {
         setSelf(object.getString("links.self"));
@@ -23,7 +23,7 @@ public class SunshinePlayer {
         setStatus(object.getString("data.status"));
         setFriends(object.getInt("data.friends"));
         setProfile(new Profile(object.getJSONObject("data.profile")));
-        setStats(new Stats(object.getJSONObject("data.stats")));
+        setStats(new PlayerStats(object.getJSONObject("data.stats")));
     }
 
 }
