@@ -4,27 +4,22 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import in.twizmwaz.sunshine.player.SunshinePlayer;
 import in.twizmwaz.sunshine.team.SunshineTeam;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * A controller class for the SunshineAPI, allowing quick access to objects.
+ * A controller object for SunshineAPI, allowing quick access to objects.
  */
-@Getter
-@Setter
+@Data
 public class Sunshine {
 
-    private static String server;
-    private static int port;
+    private String server;
+    private int port;
 
-    private Sunshine() {
-    }
-
-    public static SunshinePlayer getPlayer(String name) throws RuntimeException {
+    public SunshinePlayer getPlayer(String name) throws RuntimeException {
         try {
             String url = new URL("http", server, port, "/players/" + name).toString();
             JSONObject object = Unirest.get(url).asJson().getBody().getObject();
@@ -36,7 +31,7 @@ public class Sunshine {
         }
     }
 
-    public static SunshineTeam getTeam(String name) throws RuntimeException {
+    public SunshineTeam getTeam(String name) throws RuntimeException {
         try {
             String url = new URL("http", server, port, "/teams/" + name).toString();
             JSONObject object = Unirest.get(url).asJson().getBody().getObject();
