@@ -9,12 +9,14 @@ import org.json.JSONObject;
 @Data
 public class Stats {
 
+    private OverallStats overall;
     private ForumStats forum;
     private GameStats projectAres;
     private GameStats blitz;
     private GameStats ghostSquadron;
 
     public Stats(JSONObject object) {
+        setOverall(new OverallStats(object.getJSONObject("overall")));
         setForum(new ForumStats(object.getJSONObject("forum")));
         setProjectAres(new GameStats(object.getJSONObject("project_ares")));
         setBlitz(new GameStats(object.getJSONObject("blitz")));
