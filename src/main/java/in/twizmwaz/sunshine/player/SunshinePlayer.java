@@ -18,12 +18,13 @@ public class SunshinePlayer {
     private PlayerStats stats;
 
     public SunshinePlayer(JSONObject object) {
-        setSelf(object.getString("links.self"));
-        setName(object.getString("data.name"));
-        setStatus(object.getString("data.status"));
-        setFriends(object.getInt("data.friends"));
-        setProfile(new Profile(object.getJSONObject("data.profile")));
-        setStats(new PlayerStats(object.getJSONObject("data.stats")));
+        setSelf(object.getJSONObject("links").getString("self"));
+        JSONObject data = object.getJSONObject("data");
+        setName(data.getString("name"));
+        setStatus(data.getString("status"));
+        setFriends(data.getInt("friends"));
+        setProfile(new Profile(data.getJSONObject("profile")));
+        setStats(new PlayerStats(data.getJSONObject("stats")));
     }
 
 }
