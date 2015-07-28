@@ -9,15 +9,17 @@ import org.json.JSONObject;
 @Data
 public class PlayerStats {
 
-    private OverallStats overall;
     private ForumStats forum;
+    private OverallStats overall;
+    private ObjectiveStats objectives;
     private GameStats projectAres;
     private GameStats blitz;
     private GameStats ghostSquadron;
 
     public PlayerStats(JSONObject object) {
-        setOverall(new OverallStats(object.getJSONObject("overall")));
         setForum(new ForumStats(object.getJSONObject("forum")));
+        setOverall(new OverallStats(object.getJSONObject("overall")));
+        setObjectives(new ObjectiveStats(object.getJSONObject("objectives")));
         setProjectAres(new GameStats(object.getJSONObject("project_ares")));
         setBlitz(new GameStats(object.getJSONObject("blitz")));
         setGhostSquadron(new GameStats(object.getJSONObject("ghost_squadron")));
