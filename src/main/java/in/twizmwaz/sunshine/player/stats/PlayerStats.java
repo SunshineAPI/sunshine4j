@@ -9,7 +9,7 @@ import org.json.JSONObject;
 @Data
 public class PlayerStats {
 
-    private ForumStats forum;
+    private ForumStats forums;
     private OverallStats overall;
     private ObjectiveStats objectives;
     private GameStats projectAres;
@@ -17,7 +17,7 @@ public class PlayerStats {
     private GameStats ghostSquadron;
 
     public PlayerStats(JSONObject object) {
-        setForum(new ForumStats(object.getJSONObject("forum")));
+        setForums(new ForumStats(object.getJSONObject("forums")));
         setOverall(new OverallStats(object.getJSONObject("overall")));
         setObjectives(new ObjectiveStats(object.getJSONObject("objectives")));
         setProjectAres(new GameStats(object.getJSONObject("project_ares")));

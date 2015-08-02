@@ -14,7 +14,7 @@ public class ForumStats {
 
     public ForumStats(JSONObject object) {
         setPosts(object.getInt("posts"));
-        setStarted(object.getInt("started"));
+        setStarted(object.getInt("topics"));
     }
 
 }
