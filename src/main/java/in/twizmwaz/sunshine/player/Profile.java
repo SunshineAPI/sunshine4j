@@ -1,7 +1,6 @@
 package in.twizmwaz.sunshine.player;
 
 import lombok.Data;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -21,58 +20,14 @@ public class Profile {
     private String bio;
 
     public Profile(JSONObject object) {
-        try {
-            if (!object.getString("skype").equals(null)) {
-                setSkype(object.getString("skype"));
-            }
-        }
-        catch(JSONException e){
-
-        }
-        try{
-        if(!object.getString("steam").equals(null)){
-            setSteam(object.getString("steam"));
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("twitter").equals(null)){
-            setTwitter(object.getString("twitter"));
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("twitch").equals(null)){
-            setTwitch(object.getString("twitch"));
-
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("facebook").equals(null)){
-            setFacebook(object.getString("facebook"));
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("github").equals(null)) {
-            setGithub(object.getString("github"));
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("reddit").equals(null)){
-            setReddit(object.getString("reddit"));
-        }}
-        catch(JSONException e){
-
-        }
-        try{if(!object.getString("youtube").equals(null)){
-            setYoutube(object.getString("youtube"));
-        }}
-        catch(JSONException e){
-
-        }
+        if (!object.isNull("skype")) setSkype(object.getString("skype"));
+        if (!object.isNull("steam")) setSteam(object.getString("steam"));
+        if (!object.isNull("twitter")) setTwitter(object.getString("twitter"));
+        if (!object.isNull("twitch")) setTwitch(object.getString("twitch"));
+        if (!object.isNull("facebook")) setFacebook(object.getString("facebook"));
+        if (!object.isNull("github")) setGithub(object.getString("github"));
+        if (!object.isNull("reddit")) setReddit(object.getString("reddit"));
+        if (!object.isNull("youtube")) setYoutube(object.getString("youtube"));
         setBio(object.getString("bio"));
     }
 

@@ -1,27 +1,18 @@
 package in.twizmwaz.sunshine.player;
 
-import in.twizmwaz.sunshine.player.stats.PlayerStats;
 import lombok.Data;
 import org.json.JSONObject;
 
 /**
- * Created by Gil on 8/2/2015.
+ * Represents a {@link SunshinePlayer} who has been authenticated
  */
 @Data
-public class AuthenticatedPlayer {
-    private String self;
-    private String name;
-    private String status;
-    private int friends;
-    private Profile profile;
-    private PlayerStats stats;
+public class AuthenticatedPlayer extends SunshinePlayer {
+
     private String authToken;
-    public AuthenticatedPlayer(SunshinePlayer player,String authToken) {
-        setSelf(player.getSelf());
-        setName(player.getName());
-        setStatus(player.getStatus());
-        setFriends(player.getFriends());
-        setStats(player.getStats());
+
+    public AuthenticatedPlayer(JSONObject object, String authToken) {
+        super(object);
         setAuthToken(authToken);
     }
 

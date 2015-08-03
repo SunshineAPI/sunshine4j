@@ -10,11 +10,11 @@ import org.json.JSONObject;
 public class ForumStats {
 
     private int posts;
-    private int started;
+    private int topics;
 
     public ForumStats(JSONObject object) {
         setPosts(object.getInt("posts"));
-        setStarted(object.getInt("topics"));
+        setTopics(object.getInt("topics"));
     }
 
 }

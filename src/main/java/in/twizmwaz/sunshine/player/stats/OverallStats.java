@@ -11,7 +11,7 @@ import org.json.JSONObject;
 @Getter
 @Setter
 @ToString
-public class OverallStats {
+public class OverallStats extends GameStats {
 
     private int joins;
     private int raindrops;
@@ -22,16 +22,12 @@ public class OverallStats {
     private double kk;
     private double played;
     private double observed;
+
     public OverallStats(JSONObject object) {
-        setKills(object.getInt("kills"));
-        setDeaths(object.getInt("deaths"));
-        setKd(object.getDouble("kd"));
-        setKk(object.getDouble("kk"));
-        setPlayed(object.getDouble("played"));
-        setObserved(object.getDouble("total_observed"));
+        super(object);
         setJoinDate(object.getString("joined"));
         setJoins(object.getInt("joins"));
-        //setRaindrops(object.getInt("raindrops"));
+        setRaindrops(object.getInt("raindrops"));
     }
 
 }
