@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class SunshinePlayer {
 
     private String self;
-    private String name;
+    private String username;
     private String status;
     private int friends;
     private Profile profile;
@@ -20,7 +20,7 @@ public class SunshinePlayer {
     public SunshinePlayer(JSONObject object) {
         setSelf(object.getJSONObject("links").getString("self"));
         JSONObject data = object.getJSONObject("data");
-        setName(data.getString("username"));
+        setUsername(data.getString("username"));
         setStatus(data.getString("status"));
         setFriends(data.getJSONObject("friends").getInt("count"));
         setProfile(new Profile(data.getJSONObject("profile")));

@@ -2,11 +2,12 @@ package in.twizmwaz.sunshine;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import in.twizmwaz.sunshine.player.AuthenticatedPlayer;
+import in.twizmwaz.sunshine.auth.AuthToken;
 import in.twizmwaz.sunshine.player.SunshinePlayer;
 import in.twizmwaz.sunshine.team.SunshineTeam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -19,13 +20,14 @@ import java.net.URL;
 @AllArgsConstructor
 public class Sunshine {
 
-    private String server;
-    private int port;
+    private final String protocol;
+    private final String host;
+    private final int port;
 
     public SunshinePlayer getPlayer(String name) throws RuntimeException {
         try {
-            String url = server + "/players/" + name;
-            JSONObject object = Unirest.get(url).asJson().getBody().getObject();
+            URL url = new URL(getProtocol(), getHost(), getPort(), "/players/" + name);
+            JSONObject object = Unirest.get(url.toString()).asJson().getBody().getObject();
             return new SunshinePlayer(object);
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,9 +37,8 @@ public class Sunshine {
 
     public SunshineTeam getTeam(String name) throws RuntimeException {
         try {
-            String url = new URL("http", server, port, "/teams/" + name).toString();
+            String url = new URL("http", getHost(), getPort(), "/teams/" + name).toString();
             JSONObject object = Unirest.get(url).asJson().getBody().getObject();
-            System.out.print(object.toString());
             return new SunshineTeam(object);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
@@ -46,14 +47,19 @@ public class Sunshine {
         }
     }
 
-    public AuthenticatedPlayer getAuthenticatedPlayer(String name, String email, String password) throws RuntimeException {
+    public AuthToken getAuthToken(String email, String password) throws RuntimeException {
         try {
-            JSONObject object = Unirest.post(getServer() + "/players/auth").field("email", email).field("password", password).asJson().getBody().getObject();
-            return new AuthenticatedPlayer(object, object.getString("token"));
+            URL url = new URL(getProtocol(), getHost(), getPort(), "/players/auth");
+            JSONObject response = Unirest.post(url.toString())
+                    .field("email", email).field("password", password).asJson().getBody().getObject();
+            return new AuthToken(response);
         } catch (UnirestException e) {
             throw new RuntimeException(e);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException("Incorrect username and password", e);
         }
-
     }
 
 }
