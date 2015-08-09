@@ -5,6 +5,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import in.twizmwaz.sunshine.auth.AuthToken;
 import in.twizmwaz.sunshine.player.SunshinePlayer;
 import in.twizmwaz.sunshine.team.SunshineTeam;
+import in.twizmwaz.sunshine.tournament.Tournament;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.json.JSONException;
@@ -59,6 +60,18 @@ public class Sunshine {
             throw new RuntimeException(e);
         } catch (JSONException e) {
             throw new RuntimeException("Incorrect username and password", e);
+        }
+    }
+
+    public Tournament getTournament(String id) {
+        try {
+            String url = new URL("http", getHost(), getPort(), "/tournaments/" + id).toString();
+            JSONObject object = Unirest.get(url).asJson().getBody().getObject();
+            return new Tournament(object);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (UnirestException e) {
+            throw new RuntimeException(e);
         }
     }
 
